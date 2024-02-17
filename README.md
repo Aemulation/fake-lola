@@ -26,6 +26,14 @@ to
 let server_address = Ipv4Addr::LOCALHOST;
 ```
 
+5. Disable the rotation for the top camera. Remove the following lines in `yggdrasil/crates/heimdall/src/camera.rs`
+
+```rust
+camera_device.horizontal_flip()?;
+camera_device.vertical_flip()?;
+```
+
+
 ## Run `fake-lola`
 
 ```bash
@@ -33,7 +41,6 @@ cargo run -r
 ```
 
 ## Run `yggdrasil`
-
 Without `rerun` support
 ```bash
 cd deploy
