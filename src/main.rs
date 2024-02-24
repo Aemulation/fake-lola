@@ -1,5 +1,6 @@
 use std::io::prelude::*;
 use std::os::unix::net::UnixListener;
+use std::thread::sleep;
 use std::time::Duration;
 
 use rmp_serde::encode;
@@ -37,6 +38,8 @@ fn run(listener: &UnixListener, write_buf: &mut [u8]) -> std::io::Result<()> {
 
             loop {
                 socket.write_all(write_buf)?;
+                // LoLa cycles every 10ms.
+                sleep(Duration::from_millis(10));
 
                 let _ = socket.read_to_end(&mut read_buf);
                 read_buf.clear();
