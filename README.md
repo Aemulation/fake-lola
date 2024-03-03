@@ -3,7 +3,7 @@
 1. Create a virtual webcam device
 
 ```bash
-sudo modprobe v4l2loopback video_nr=42
+sudo modprobe v4l2loopback video_nr=42 max_buffers=3
 ```
 
 2. Stream a picture to it using ffmpeg
