@@ -1,5 +1,8 @@
 #!/bin/bash
 
+set -e
+set -o pipefail
+
 if [ -z $1 ]; then
 	echo "Usage: run.sh image.jpeg"
 	exit 0
