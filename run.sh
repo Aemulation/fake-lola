@@ -3,12 +3,12 @@
 set -e
 set -o pipefail
 
-if [ -z $1 ]; then
+if [[ -z $1 ]]; then
 	echo "Usage: run.sh image.jpeg"
 	exit 0
 fi
 
-if [ ! -d /dev/video42 ]; then
+if [[ -z "$(ls /dev | grep "video42")" ]]; then
 	sudo modprobe v4l2loopback video_nr=42 max_buffers=3
 fi
 
