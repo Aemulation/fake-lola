@@ -14,4 +14,11 @@ fi
 
 printf "running..."
 
-parallel ::: "cargo run -r" "ffmpeg -re -loop 1 -i ${1} -filter:v fps=30 -s 640x480 -f v4l2 -vcodec rawvideo -pix_fmt yuyv422 /dev/video42"
+if [ ! -z "$(file -ib "$1" | grep image)" ]; then
+	parallel ::: "cargo run -r" "ffmpeg -re -loop 1 -i \"$1\" -filter:v fps=30 -s 640x480 -f v4l2 -vcodec rawvideo -pix_fmt yuyv422 /dev/video42"
+elif [ ! -z "$(file -ib "$1" | grep video)" ]; then
+	parallel ::: "cargo run -r" "ffmpeg -stream_loop -1 -re -i \"$1\" -s 640x480 -vcodec rawvideo -pix_fmt yuyv422 -f v4l2 /dev/video42"
+else
+	echo "Invalid input file"
+	exit 0
+fi
